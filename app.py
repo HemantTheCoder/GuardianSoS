@@ -121,29 +121,37 @@ with st.sidebar:
             coords = browser_loc["coords"]
             lat_gps = float(coords["latitude"])
             lon_gps = float(coords["longitude"])
-            st.session_state.active_location = {
-                "lat": lat_gps,
-                "lon": lon_gps,
-                "country": st.session_state.active_location.get("country", "IN")
-            }
-            # Reverse geocode address when online
-            if net_status != "OFFLINE" and ('last_geocoded_coords' not in st.session_state or st.session_state.last_geocoded_coords != (lat_gps, lon_gps)):
-                st.session_state.location_address = reverse_geocode_online(lat_gps, lon_gps)
-                st.session_state.last_geocoded_coords = (lat_gps, lon_gps)
+            
+            # Reject server-side Oregon default coordinates (Streamlit Cloud host)
+            if abs(lat_gps - 45.5945) < 0.01 and abs(lon_gps - (-121.1786)) < 0.01:
+                st.session_state.active_location = PRESETS["Bengaluru - Indiranagar (India)"]
+            else:
+                st.session_state.active_location = {
+                    "lat": lat_gps,
+                    "lon": lon_gps,
+                    "country": st.session_state.active_location.get("country", "IN")
+                }
+                # Reverse geocode address when online
+                if net_status != "OFFLINE" and ('last_geocoded_coords' not in st.session_state or st.session_state.last_geocoded_coords != (lat_gps, lon_gps)):
+                    st.session_state.location_address = reverse_geocode_online(lat_gps, lon_gps)
+                    st.session_state.last_geocoded_coords = (lat_gps, lon_gps)
         else:
             # 2. Fallback to IP-based Geolocation (if browser GPS not allowed or loading)
             if 'detected_location' not in st.session_state:
                 from src.geolocation import get_ip_geolocation
                 detected_loc = get_ip_geolocation()
-                if detected_loc:
+                # Reject if the detected IP is the Oregon server (US hosting node)
+                if detected_loc and detected_loc["country"] != "US" and detected_loc["city"] != "The Dalles":
                     st.session_state.detected_location = {
                         "lat": detected_loc["lat"],
                         "lon": detected_loc["lon"],
                         "country": detected_loc["country"]
                     }
-                    st.session_state.location_address = f"Approximate: {detected_loc['city']} (Via IP Geolocation)"
+                    st.session_state.location_address = f"Approximate: {detected_loc['city']} (Via IP)"
                 else:
+                    # Default to India preset (Bengaluru) instead of US hosting node!
                     st.session_state.detected_location = PRESETS["Bengaluru - Indiranagar (India)"]
+                    st.session_state.location_address = "Indiranagar 100 Feet Rd, Bengaluru, Karnataka, India"
             st.session_state.active_location = st.session_state.detected_location
     else:
         st.session_state.active_location = PRESETS[preset_choice]
