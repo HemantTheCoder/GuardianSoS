@@ -145,8 +145,10 @@ def sync_osm_data_to_db(lat, lon, radius_meters=8000):
                 return True, f"✅ Auto-Sync Complete! Successfully added {hospitals_inserted} Hospitals, {police_inserted} Police Stations, {ambulances_inserted} Ambulance Units, and {shops_inserted} Tyre/Towing services near you!"
             else:
                 return True, "💡 Synced with OpenStreetMap. All local services in this radius are already cached in your database!"
+        else:
+            return False, f"OpenStreetMap Overpass API returned status {response.status_code}. (Server may be busy, please try again in 5 seconds)"
                 
     except Exception as e:
         return False, f"Could not sync with OpenStreetMap: {str(e)}"
         
-    return False, "Sync skipped."
+    return False, "Sync skipped due to invalid connection state."
