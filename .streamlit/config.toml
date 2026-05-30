@@ -1,0 +1,11 @@
+[theme]
+primaryColor = "#FF3B30"          # Apple-style emergency red
+backgroundColor = "#0A0E17"       # Very premium deep dark navy/slate
+secondaryBackgroundColor = "#162032" # Sleek slate-blue for cards and elements
+textColor = "#F5F7FA"             # Clean, high-contrast readable text
+font = "sans serif"
+
+[server]
+headless = true
+enableCORS = false
+enableXsrfProtection = false

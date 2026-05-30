@@ -1,0 +1,184 @@
+/* GuardianSOS Premium Styling - Modern Glassmorphism & High-Contrast Emergency Elements */
+
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+
+/* Apply Global Font Override */
+html, body, [class*="css"], .stMarkdown {
+    font-family: 'Plus Jakarta Sans', sans-serif !important;
+}
+
+/* Glassmorphism Card Container */
+.glass-card {
+    background: rgba(22, 32, 50, 0.6) !important;
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    border-radius: 16px !important;
+    padding: 24px !important;
+    margin-bottom: 20px !important;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3) !important;
+    transition: all 0.3s ease !important;
+}
+
+.glass-card:hover {
+    border-color: rgba(255, 255, 255, 0.15) !important;
+    box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.4) !important;
+    transform: translateY(-2px) !important;
+}
+
+/* Dynamic Pulsating SOS Button */
+.sos-button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 0;
+}
+
+.sos-button {
+    background: radial-gradient(circle, #FF3B30 0%, #C72C24 100%) !important;
+    color: #FFFFFF !important;
+    font-weight: 800 !important;
+    font-size: 26px !important;
+    letter-spacing: 1.5px !important;
+    border: none !important;
+    border-radius: 50% !important;
+    width: 140px !important;
+    height: 140px !important;
+    cursor: pointer !important;
+    box-shadow: 0 0 0 0 rgba(255, 59, 48, 0.7) !important;
+    animation: pulse 1.6s infinite !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-transform: uppercase !important;
+    transition: all 0.2s ease-in-out !important;
+}
+
+.sos-button:hover {
+    transform: scale(1.08) !important;
+    background: radial-gradient(circle, #FF453A 0%, #D32F2F 100%) !important;
+    box-shadow: 0 0 20px 5px rgba(255, 59, 48, 0.5) !important;
+}
+
+.sos-button:active {
+    transform: scale(0.95) !important;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(0.98);
+        box-shadow: 0 0 0 0 rgba(255, 59, 48, 0.6);
+    }
+    70% {
+        transform: scale(1.05);
+        box-shadow: 0 0 0 25px rgba(255, 59, 48, 0);
+    }
+    100% {
+        transform: scale(0.98);
+        box-shadow: 0 0 0 0 rgba(255, 59, 48, 0);
+    }
+}
+
+/* Custom Alert Badges */
+.badge-red {
+    background-color: rgba(255, 59, 48, 0.15) !important;
+    color: #FF453A !important;
+    border: 1px solid rgba(255, 59, 48, 0.3) !important;
+    padding: 6px 12px !important;
+    border-radius: 30px !important;
+    font-weight: 700 !important;
+    display: inline-block !important;
+    font-size: 0.85rem !important;
+}
+
+.badge-yellow {
+    background-color: rgba(255, 159, 10, 0.15) !important;
+    color: #FF9F0A !important;
+    border: 1px solid rgba(255, 159, 10, 0.3) !important;
+    padding: 6px 12px !important;
+    border-radius: 30px !important;
+    font-weight: 700 !important;
+    display: inline-block !important;
+    font-size: 0.85rem !important;
+}
+
+.badge-green {
+    background-color: rgba(48, 209, 88, 0.15) !important;
+    color: #30D158 !important;
+    border: 1px solid rgba(48, 209, 88, 0.3) !important;
+    padding: 6px 12px !important;
+    border-radius: 30px !important;
+    font-weight: 700 !important;
+    display: inline-block !important;
+    font-size: 0.85rem !important;
+}
+
+/* Emergency Metrics Styling (Option B Cards) */
+.metric-card {
+    background: rgba(30, 41, 59, 0.4) !important;
+    border-left: 4px solid #FF3B30 !important;
+    border-radius: 8px !important;
+    padding: 16px !important;
+    margin-bottom: 12px !important;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+}
+
+.metric-card-police {
+    border-left: 4px solid #0A84FF !important;
+}
+
+.metric-card-towing {
+    border-left: 4px solid #BF5AF2 !important;
+}
+
+.metric-card-puncture {
+    border-left: 4px solid #FFD60A !important;
+}
+
+.metric-card-title {
+    font-size: 1.1rem !important;
+    font-weight: 700 !important;
+    color: #FFFFFF !important;
+}
+
+.metric-card-subtitle {
+    font-size: 0.85rem !important;
+    color: #94A3B8 !important;
+    margin-top: 4px !important;
+}
+
+.metric-card-action {
+    background: rgba(255, 255, 255, 0.1) !important;
+    border-radius: 6px !important;
+    padding: 6px 12px !important;
+    font-size: 0.85rem !important;
+    color: #FFFFFF !important;
+    font-weight: 600 !important;
+    cursor: pointer !important;
+    transition: all 0.2s !important;
+    border: 1px solid rgba(255, 255, 255, 0.05) !important;
+    text-decoration: none !important;
+    text-align: center !important;
+}
+
+.metric-card-action:hover {
+    background: rgba(255, 255, 255, 0.2) !important;
+}
+
+/* Custom Scrollbar for modern looks */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+::-webkit-scrollbar-track {
+    background: #0A0E17;
+}
+::-webkit-scrollbar-thumb {
+    background: #1E293B;
+    border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #334155;
+}
