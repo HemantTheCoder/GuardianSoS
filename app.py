@@ -100,15 +100,38 @@ with st.sidebar:
     </div>
     """, unsafe_allow_html=True)
     
-    # 2. EMERGENCY LOCATION SIMULATOR (Preset Selector)
+    # 2. EMERGENCY LOCATION SIMULATOR (Dynamic Address Search & Presets)
+    st.markdown("### 🔍 Search Location")
+    search_query = st.text_input(
+        "Enter City, Area, or Highway:",
+        value="",
+        placeholder="e.g. Gandhinagar, Saket Delhi, Indiranagar",
+        help="Type any location or city globally. The spatial core will instantly geocode, center, and cache services."
+    )
+    
+    # Preset Selector as secondary fallback
     st.markdown("### 📍 Location Presets (Demo-Safe)")
     options_list = ["🟢 My Real Location (Auto-Detected)"] + list(PRESETS.keys())
     preset_choice = st.selectbox(
-        "Choose simulated accident spot:",
+        "Or choose simulated accident spot:",
         options=options_list
     )
     
-    if preset_choice == "🟢 My Real Location (Auto-Detected)":
+    # Resolve Coordinates based on Search Query or Dropdowns
+    if search_query:
+        if 'last_search_query' not in st.session_state or st.session_state.last_search_query != search_query:
+            st.session_state.last_search_query = search_query
+            from src.geolocation import geocode_online
+            res = geocode_online(search_query)
+            if res:
+                st.session_state.active_location = {
+                    "lat": res[0],
+                    "lon": res[1],
+                    "country": "IN"
+                }
+                st.session_state.location_address = res[2]
+                st.session_state.last_geocoded_coords = (res[0], res[1])
+    elif preset_choice == "🟢 My Real Location (Auto-Detected)":
         # 1. Try to get highly precise Browser Geolocation (HTML5 GPS)
         browser_loc = None
         try:
